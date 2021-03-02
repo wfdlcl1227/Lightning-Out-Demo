@@ -5,7 +5,6 @@ var express = require('express'),
     app = express();
 	
 var https = require('https');
-var fs = require('fs');
 
 const fs = require('fs'),
     privateKey = fs.readFileSync('key.pem').toString('utf8'),
