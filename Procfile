@@ -1,1 +1,2 @@
-web: nmp start
+web: npm install
+web: npm start
