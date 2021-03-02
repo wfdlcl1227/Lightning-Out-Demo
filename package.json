@@ -4,7 +4,7 @@
   "description": "Surface Lightning Component on Node.js Application",
   "main": "Server.js",
   "scripts": {
-    "start":"Server.js",	  
+    "start":"node Server.js",	  
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
