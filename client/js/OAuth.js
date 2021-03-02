@@ -3,10 +3,10 @@ $("#prodBtn").click(prodLogin);
 $("#sandBtn").click(sandLogin);
 
 var apiVersion = 'v37.0',
-    clientId = 'YOUR CONSUMER KEY',
+    clientId = '3MVG97quAmFZJfVxWKnAvwSSZmNlDRE3_6Qwn1WK5g9juYM3jaINFc3BX9_XGU_LeYSo4mqbgIYJH8lvevSvK',
     loginUrl = 'https://login.salesforce.com/',
-    redirectURI = "http://localhost:8080/oauthcallback.html",
-    proxyURL = 'http://localhost:8080/proxy/' ;
+    redirectURI = "https://web-app-connect-to-salesforce.herokuapp.com/oauthcallback.html",
+    proxyURL = 'https://web-app-connect-to-salesforce.herokuapp.com/proxy/' ;
  
 
 function prodLogin()
