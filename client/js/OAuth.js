@@ -2,6 +2,8 @@
 $("#prodBtn").click(prodLogin);
 $("#sandBtn").click(sandLogin);
 
+
+
 var apiVersion = 'v37.0',
     clientId = '3MVG97quAmFZJfVxWKnAvwSSZmNlDRE3_6Qwn1WK5g9juYM3jaINFc3BX9_XGU_LeYSo4mqbgIYJH8lvevSvK',
     loginUrl = 'https://test-chris-dev-ed.my.salesforce.com/',
@@ -26,6 +28,20 @@ function login() {
         '&redirect_uri=' + encodeURIComponent(redirectURI);
     popupCenter(url, 'login', 700, 600);
 }
+
+function loginJWT() {
+    var token = jwt.getToken({
+            iss: "<YOUR_CONNECTED_APP_CLIENT_ID>",
+            sub: "<YOUR_SALESFORCE_USERNAME>",
+            aud: "<YOUR_AUDIENCE>",
+            privateKey: privateKey
+        },
+        function(err, token){
+            console.log(token);
+        }
+    );
+}
+
 
 function oauthCallback(response) {
     if (response && response.access_token) { 
