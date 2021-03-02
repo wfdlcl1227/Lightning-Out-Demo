@@ -8,7 +8,7 @@ var https = require('https');
 var fs = require('fs');
 
 const fs = require('fs'),
-    privateKey = fs.readFileSync('private.pem').toString('utf8'),
+    privateKey = fs.readFileSync('key.pem').toString('utf8'),
     jwt = require("salesforce-jwt-bearer-token-flow");
 	
 var logFmt = require("logfmt");

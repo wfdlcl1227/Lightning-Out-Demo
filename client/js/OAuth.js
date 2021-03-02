@@ -14,13 +14,13 @@ var apiVersion = 'v37.0',
 function prodLogin()
 {
 	loginUrl = 'https://test-chris-dev-ed.my.salesforce.com/'; 
-    login();
+    loginJWT();
 }
 
 function sandLogin()
 {
     loginUrl = 'https://test-chris-dev-ed.my.salesforce.com/';
-    login();
+    loginJWT();
 }
 function login() {
     var url = loginUrl + 'services/oauth2/authorize?display=popup&response_type=token' +
@@ -31,13 +31,13 @@ function login() {
 
 function loginJWT() {
     var token = jwt.getToken({
-            iss: "<YOUR_CONNECTED_APP_CLIENT_ID>",
-            sub: "<YOUR_SALESFORCE_USERNAME>",
-            aud: "<YOUR_AUDIENCE>",
+            iss: "3MVG97quAmFZJfVxWKnAvwSSZmNlDRE3_6Qwn1WK5g9juYM3jaINFc3BX9_XGU_LeYSo4mqbgIYJH8lvevSvK",
+            sub: "wfdlcl1227@126.com.analytics",
+            aud: "https://test-chris-dev-ed.my.salesforce.com/",
             privateKey: privateKey
         },
         function(err, token){
-            console.log(token);
+            oauthCallback(token);
         }
     );
 }
@@ -53,7 +53,6 @@ function oauthCallback(response) {
         
 		strngBrks = response.id.split('/');
 		$.cookie("LoggeduserId",  strngBrks[strngBrks.length - 1]) ;
-		
         window.location = 'Main';
     } else {
         alert("AuthenticationError: No Token");
