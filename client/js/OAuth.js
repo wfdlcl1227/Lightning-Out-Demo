@@ -4,20 +4,20 @@ $("#sandBtn").click(sandLogin);
 
 var apiVersion = 'v37.0',
     clientId = '3MVG97quAmFZJfVxWKnAvwSSZmNlDRE3_6Qwn1WK5g9juYM3jaINFc3BX9_XGU_LeYSo4mqbgIYJH8lvevSvK',
-    loginUrl = 'https://login.salesforce.com/',
+    loginUrl = 'https://test-chris-dev-ed.my.salesforce.com/',
     redirectURI = "https://web-app-connect-to-salesforce.herokuapp.com/oauthcallback.html",
     proxyURL = 'https://web-app-connect-to-salesforce.herokuapp.com/proxy/' ;
  
 
 function prodLogin()
 {
-	loginUrl = 'https://login.salesforce.com/'; 
+	loginUrl = 'https://test-chris-dev-ed.my.salesforce.com/'; 
     login();
 }
 
 function sandLogin()
 {
-    loginUrl = 'https://test.salesforce.com/';
+    loginUrl = 'https://test-chris-dev-ed.my.salesforce.com/';
     login();
 }
 function login() {
