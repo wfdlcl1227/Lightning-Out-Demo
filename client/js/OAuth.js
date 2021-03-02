@@ -8,9 +8,8 @@ var apiVersion = 'v37.0',
     redirectURI = "https://web-app-connect-to-salesforce.herokuapp.com/oauthcallback.html",
     proxyURL = 'https://web-app-connect-to-salesforce.herokuapp.com/proxy/' ;
  
-    const   fs = require('fs')
-    ,   privateKey = fs.readFileSync('private.pem').toString('utf8')
-    ,   jwt = require("salesforce-jwt-bearer-token-flow");
+    const privateKey = fs.readFileSync('private.pem').toString('utf8'),
+	  jwt = require("salesforce-jwt-bearer-token-flow");
 
 function prodLogin()
 {
