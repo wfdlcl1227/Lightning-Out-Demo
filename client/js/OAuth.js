@@ -2,7 +2,7 @@
 $("#prodBtn").click(prodLogin);
 $("#sandBtn").click(sandLogin);
 
-
+//123
 
 var apiVersion = 'v37.0',
     clientId = '3MVG97quAmFZJfVxWKnAvwSSZmNlDRE3_6Qwn1WK5g9juYM3jaINFc3BX9_XGU_LeYSo4mqbgIYJH8lvevSvK',
@@ -14,7 +14,7 @@ var apiVersion = 'v37.0',
 function prodLogin()
 {
 	loginUrl = 'https://test-chris-dev-ed.my.salesforce.com/'; 
-    loginJWT();
+    loginJWT(); 
 }
 
 function sandLogin()
