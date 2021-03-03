@@ -116,7 +116,7 @@ async function getWXToken(res){
 async function getWXTicket(res){
     //get token
     var url = wx_config.ticket_url;
-    url += '?access_token=' + wx_config.access_token;
+    url += '?access_token=' + wx_config.access_token+'&type=agent_config';
 
     let response = await fetch(url); // 解析 response header
     let result = await response.json(); // 将 body 读取为 json
