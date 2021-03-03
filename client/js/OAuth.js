@@ -8,7 +8,7 @@ var apiVersion = 'v37.0',
     redirectURI = "https://web-app-connect-to-salesforce.herokuapp.com/oauthcallback.html",
     proxyURL = 'https://web-app-connect-to-salesforce.herokuapp.com/proxy/' ;
  
-const privateKey = fs.readFileSync('private.pem').toString('utf8'),
+const privateKey = fs.readFileSync('key.pem').toString('utf8'),
 	  jwt = require("salesforce-jwt-bearer-token-flow");
 
 
@@ -33,9 +33,9 @@ function login() {
 
 function loginJWT() {
     var token = jwt.getToken({
-        iss: "<YOUR_CONNECTED_APP_CLIENT_ID>",
-        sub: "<YOUR_SALESFORCE_USERNAME>",
-        aud: "<YOUR_AUDIENCE>",
+        iss: "3MVG97quAmFZJfVxWKnAvwSSZmNlDRE3_6Qwn1WK5g9juYM3jaINFc3BX9_XGU_LeYSo4mqbgIYJH8lvevSvK",
+        sub: "wfdlcl1227@126.com.analytics",
+        aud: "https://test-chris-dev-ed.my.salesforce.com",
         privateKey: privateKey
     },
     function(err, token){
