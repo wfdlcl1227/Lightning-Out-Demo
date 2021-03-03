@@ -27,7 +27,8 @@
     "request": "~2.36.0",
     "body-parser": "~1.6.2",
 	  "cors":"2.8.1",
-    "salesforce-jwt-bearer-token-flow":"0.2.4"
+    "salesforce-jwt-bearer-token-flow":"0.2.4",
+    "punycode":"2.1.1"
   },
   "engines": {
 	    "node": "0.10.x"
