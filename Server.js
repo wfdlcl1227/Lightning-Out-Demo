@@ -18,7 +18,6 @@ var wx_config = {
     corp_secret:'_O31adLntyCr6QUI5j5WD0L39O-tSVY9ltXyAihUqAo',
     access_token: '',
     ticket: '',
-    timestamp:parseInt(new Date().getTime() / 1000),
     host_url:'https://web-app-connect-to-salesforce.herokuapp.com/'
 
 };
@@ -123,8 +122,12 @@ async function getWXTicket(res){
 
 
 function getJSSDKSign(res){
-    let wx_sign = "jsapi_ticket=" + wx_config.ticket + "&noncestr=" + sha1(new Date()) + "&timestamp=" + wx_config.timestamp + "&url=" + wx_config.host_url;
+    let wx_nonce = sha1(new Date());
+    let wx_timestamp=parseInt(new Date().getTime() / 1000)
+    let wx_sign = "jsapi_ticket=" + wx_config.ticket + "&noncestr=" + wx_nonce + "&timestamp=" + wx_config.timestamp + "&url=" + wx_config.host_url;
     res.cookie('wxsign', sha1(wx_sign), {maxAge: 60*1000});
+    res.cookie('wxnonce', wx_nonce, {maxAge: 60*1000});
+    res.cookie('wxtimestamp', wx_timestamp, {maxAge: 60*1000});
     res.sendfile('views/Main.html');
 };
 
