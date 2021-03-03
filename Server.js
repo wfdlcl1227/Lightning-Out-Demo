@@ -14,7 +14,7 @@ jwt = require("salesforce-jwt-bearer-token-flow");
  
 var wx_config = {
     token_url:'https://qyapi.weixin.qq.com/cgi-bin/gettoken',
-    ticket_url:'https://qyapi.weixin.qq.com/cgi-bin/ticket/get',
+    ticket_url:'https://qyapi.weixin.qq.com/cgi-bin/get_jsapi_ticket',
     corp_id:'ww280a3271671efde1',
     corp_secret:'_O31adLntyCr6QUI5j5WD0L39O-tSVY9ltXyAihUqAo',
     access_token: '',
@@ -116,7 +116,7 @@ async function getWXToken(res){
 async function getWXTicket(res){
     //get token
     var url = wx_config.ticket_url;
-    url += '?access_token=' + wx_config.access_token+'&type=agent_config';
+    url += '?access_token=' + wx_config.access_token;
 
     let response = await fetch(url); // 解析 response header
     let result = await response.json(); // 将 body 读取为 json
