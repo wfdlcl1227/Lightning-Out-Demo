@@ -68,8 +68,7 @@ function loginJWT(res){
         aud: "https://login.salesforce.com",
         privateKey: privateKey,
     },
-    (err, token)=>{
-
+    function(err, token){
         res.cookie('AccToken', token.access_token, {maxAge: 60*1000});
         res.cookie('APIVer', 'v37.0', {maxAge: 60*1000});
         res.cookie('InstURL', token.instance_url, {maxAge: 60*1000});
@@ -77,7 +76,7 @@ function loginJWT(res){
         strngBrks = token.id.split('/');
         res.cookie("LoggeduserId",  strngBrks[strngBrks.length - 1]) ;
         res.sendfile('views/main.html');
-    }
+    }    
     );    
 };
 
