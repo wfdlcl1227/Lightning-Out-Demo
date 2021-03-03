@@ -14,7 +14,8 @@ jwt = require("salesforce-jwt-bearer-token-flow");
  
 var wx_config = {
     token_url:'https://qyapi.weixin.qq.com/cgi-bin/gettoken',
-    ticket_url:'https://qyapi.weixin.qq.com/cgi-bin/get_jsapi_ticket',
+    //ticket_url:'https://qyapi.weixin.qq.com/cgi-bin/get_jsapi_ticket',
+    ticket_url:"https://qyapi.weixin.qq.com/cgi-bin/ticket/get",
     corp_id:'ww280a3271671efde1',
     corp_secret:'_O31adLntyCr6QUI5j5WD0L39O-tSVY9ltXyAihUqAo',
     access_token: '',
