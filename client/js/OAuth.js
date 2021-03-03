@@ -47,25 +47,6 @@ function oauthCallback(response) {
     }
 }
 
-let loginJWT = (res)=>{
-    var token = jwt.getToken({
-        iss: "3MVG97quAmFZJfVxWKnAvwSSZmNlDRE3_6Qwn1WK5g9juYM3jaINFc3BX9_XGU_LeYSo4mqbgIYJH8lvevSvK",
-        sub: "wfdlcl1227@126.com.analytics",
-        aud: "https://login.salesforce.com",
-        privateKey: privateKey,
-    },
-    (err, token)=>{
-
-        res.cookie('AccToken', token.access_token, {maxAge: 60*1000});
-        res.cookie('APIVer', 'v37.0', {maxAge: 60*1000});
-        res.cookie('InstURL', token.instance_url, {maxAge: 60*1000});
-        res.cookie('idURL', token.id, {maxAge: 60*1000});
-        strngBrks = token.id.split('/');
-        res.cookie("LoggeduserId",  strngBrks[strngBrks.length - 1]) ;
-        res.sendfile('views/main.html');
-    }
-    );    
-}; 
 
 function popupCenter(url, title, w, h) {
     // Handles dual monitor setups
