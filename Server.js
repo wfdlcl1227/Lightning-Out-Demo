@@ -70,6 +70,9 @@ app.get('/Main*' ,   function(req,res,next) {
     getSFToken(res);
 } );
  
+app.get('/WW_verify_e6WJnTuiAA4sEwBY.txt' ,   function(req,res,next) {
+    res.sendfile('./WW_verify_e6WJnTuiAA4sEwBY.txt');
+} );
 
 app.listen(app.get('port'), function () {
     console.log('Express server listening on port ' + app.get('port'));
