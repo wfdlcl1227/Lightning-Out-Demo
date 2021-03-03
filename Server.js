@@ -19,7 +19,7 @@ var wx_config = {
     corp_secret:'_O31adLntyCr6QUI5j5WD0L39O-tSVY9ltXyAihUqAo',
     access_token: '',
     ticket: '',
-    host_url:'https://web-app-connect-to-salesforce.herokuapp.com/'
+    host_url:'web-app-connect-to-salesforce.herokuapp.com'
 
 };
 	
