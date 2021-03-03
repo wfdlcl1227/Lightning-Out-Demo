@@ -4,7 +4,8 @@ var express = require('express'),
     bodyParser = require('body-parser'),
     app = express(),
     fetch=require('node-fetch'),
-    sha1 = require('sha1');
+    sha1 = require('sha1'),
+    urlencode = require('urlencode');
 	
 var https = require('https');
 var fs = require('fs'),
@@ -127,10 +128,13 @@ async function getWXTicket(res){
 function getJSSDKSign(res){
     let wx_nonce = sha1(new Date());
     let wx_timestamp=parseInt(new Date().getTime() / 1000)
-    let wx_sign = "jsapi_ticket=" + wx_config.ticket + "&noncestr=" + wx_nonce + "&timestamp=" + wx_config.timestamp + "&url=" + wx_config.host_url;
-    res.cookie('wxsign', sha1(wx_sign), {maxAge: 60*1000});
+    let wx_sign = "jsapi_ticket=" + wx_config.ticket + "&noncestr=" + wx_nonce + "&timestamp=" + wx_timestamp + "&url=" + wx_config.host_url;
+    res.cookie('wxticket', wx_config.ticket, {maxAge: 60*1000});
+    res.cookie('wxsign', sha1(urlencode.decode(wx_sign)), {maxAge: 60*1000});
     res.cookie('wxnonce', wx_nonce, {maxAge: 60*1000});
     res.cookie('wxtimestamp', wx_timestamp, {maxAge: 60*1000});
+    res.cookie('wxhurl', urlencode.decode(wx_config.host_url), {maxAge: 60*1000});
+    res.cookie('wxall', wx_sign, {maxAge: 60*1000});
     res.sendfile('views/Main.html');
 };
 

@@ -29,7 +29,8 @@
     "cors": "2.8.1",
     "salesforce-jwt-bearer-token-flow": "0.2.4",
     "node-fetch": "2.x",
-    "sha1":"1.1.1"
+    "sha1": "1.1.1",
+    "urlencode": "1.1.0"
   },
   "engines": {
     "node": "12.17.x"
