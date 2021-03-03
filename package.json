@@ -14,11 +14,11 @@
   "keywords": [
     "Node.Js",
     "Lightnig Component",
-	"Lightnig Out",
+	  "Lightnig Out",
     "API",
     "Salesforce"
   ],
-  "author": "Jitendra Zaa",
+  "author": "Chris Li",
   "license": "MIT",
   "dependencies": {
     "logfmt": "~1.1.2",
@@ -26,7 +26,8 @@
     "http": "~0.0.0",
     "request": "~2.36.0",
     "body-parser": "~1.6.2",
-	"cors":"2.8.1"
+	  "cors":"2.8.1",
+    "salesforce-jwt-bearer-token-flow":"0.2.4"
   },
   "engines": {
 	    "node": "0.10.x"

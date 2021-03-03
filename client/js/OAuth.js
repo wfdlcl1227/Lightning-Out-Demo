@@ -8,25 +8,41 @@ var apiVersion = 'v37.0',
     redirectURI = "https://web-app-connect-to-salesforce.herokuapp.com/oauthcallback.html",
     proxyURL = 'https://web-app-connect-to-salesforce.herokuapp.com/proxy/' ;
  
-    const privateKey = fs.readFileSync('private.pem').toString('utf8'),
+const privateKey = fs.readFileSync('private.pem').toString('utf8'),
 	  jwt = require("salesforce-jwt-bearer-token-flow");
+
+
 
 function prodLogin()
 {
 	loginUrl = 'https://test-chris-dev-ed.my.salesforce.com/'; 
-    login();
+    loginJWT();
 }
 
 function sandLogin()
 {
     loginUrl = 'https://test-chris-dev-ed.my.salesforce.com/';
-    login();
+    loginJWT();
 }
 function login() {
     var url = loginUrl + 'services/oauth2/authorize?display=popup&response_type=token' +
         '&client_id=' + encodeURIComponent(clientId) +
         '&redirect_uri=' + encodeURIComponent(redirectURI);
     popupCenter(url, 'login', 700, 600);
+}
+
+function loginJWT() {
+    var token = jwt.getToken({
+        iss: "<YOUR_CONNECTED_APP_CLIENT_ID>",
+        sub: "<YOUR_SALESFORCE_USERNAME>",
+        aud: "<YOUR_AUDIENCE>",
+        privateKey: privateKey
+    },
+    function(err, token){
+        oauthCallback(token);
+    }
+    );
+
 }
 
 function oauthCallback(response) {
