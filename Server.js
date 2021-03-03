@@ -14,7 +14,7 @@ jwt = require("salesforce-jwt-bearer-token-flow");
  
 var wx_config = {
     token_url:'https://qyapi.weixin.qq.com/cgi-bin/gettoken',
-    ticket_url:'https://qyapi.weixin.qq.com/cgi-bin/ticket/agent_config',
+    ticket_url:'https://qyapi.weixin.qq.com/cgi-bin/ticket/get',
     corp_id:'ww280a3271671efde1',
     corp_secret:'_O31adLntyCr6QUI5j5WD0L39O-tSVY9ltXyAihUqAo',
     access_token: '',
@@ -130,10 +130,10 @@ function getJSSDKSign(res){
     let wx_timestamp=parseInt(new Date().getTime() / 1000)
     let wx_sign = "jsapi_ticket=" + wx_config.ticket + "&noncestr=" + wx_nonce + "&timestamp=" + wx_timestamp + "&url=" + wx_config.host_url;
     res.cookie('wxticket', wx_config.ticket, {maxAge: 60*1000});
-    res.cookie('wxsign', sha1(urlencode.decode(wx_sign)), {maxAge: 60*1000});
+    res.cookie('wxsign', sha1(wx_sign), {maxAge: 60*1000});
     res.cookie('wxnonce', wx_nonce, {maxAge: 60*1000});
     res.cookie('wxtimestamp', wx_timestamp, {maxAge: 60*1000});
-    res.cookie('wxhurl', urlencode.decode(wx_config.host_url), {maxAge: 60*1000});
+    res.cookie('wxhurl', wx_config.host_url, {maxAge: 60*1000});
     res.cookie('wxall', wx_sign, {maxAge: 60*1000});
     res.sendfile('views/Main.html');
 };
