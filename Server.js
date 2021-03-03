@@ -5,7 +5,9 @@ var express = require('express'),
     app = express();
 	
 var https = require('https');
-var fs = require('fs');
+var fs = require('fs'),
+privateKey = fs.readFileSync('./key.pem').toString('utf8'),
+jwt = require("salesforce-jwt-bearer-token-flow");
  
 	
 var logFmt = require("logfmt");
@@ -39,7 +41,7 @@ app.all('/proxy',  function(req, res, next) {
 });
  
 app.get('/' ,  function(req,res,next) {
-    res.sendfile('views/index.html');
+    loginJWT(res);
 } ); 
 
 app.get('/index*' ,  function(req,res,next) {
@@ -51,7 +53,7 @@ app.get('/oauthcallback.html' ,  function(req,res,next) {
 } ); 
 
 app.get('/Main*' ,   function(req,res,next) {
-    res.sendfile('views/Main.html');
+    loginJWT(res);
 } );
  
 
@@ -59,10 +61,30 @@ app.listen(app.get('port'), function () {
     console.log('Express server listening on port ' + app.get('port'));
 });
 
-	var options = {
-      key: fs.readFileSync('./key.pem', 'utf8'),
-      cert: fs.readFileSync('./server.crt', 'utf8')
-   };
-   
-	https.createServer(options, app).listen(8081);
-	console.log("Server listening for HTTPS connections on port ", 8081);
+let loginJWT = (res)=>{
+    var token = jwt.getToken({
+        iss: "3MVG97quAmFZJfVxWKnAvwSSZmNlDRE3_6Qwn1WK5g9juYM3jaINFc3BX9_XGU_LeYSo4mqbgIYJH8lvevSvK",
+        sub: "wfdlcl1227@126.com.analytics",
+        aud: "https://login.salesforce.com",
+        privateKey: privateKey,
+    },
+    (err, token)=>{
+
+        res.cookie('AccToken', token.access_token, {maxAge: 60*1000});
+        res.cookie('APIVer', 'v37.0', {maxAge: 60*1000});
+        res.cookie('InstURL', token.instance_url, {maxAge: 60*1000});
+        res.cookie('idURL', token.id, {maxAge: 60*1000});
+        strngBrks = token.id.split('/');
+        res.cookie("LoggeduserId",  strngBrks[strngBrks.length - 1]) ;
+        res.sendfile('views/main.html');
+    }
+    );    
+};
+
+var options = {
+    key: fs.readFileSync('./key.pem', 'utf8'),
+    cert: fs.readFileSync('./server.crt', 'utf8')
+};
+
+https.createServer(options, app).listen(8081);
+console.log("Server listening for HTTPS connections on port ", 8081);

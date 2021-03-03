@@ -8,22 +8,17 @@ var apiVersion = 'v37.0',
     redirectURI = "https://web-app-connect-to-salesforce.herokuapp.com/oauthcallback.html",
     proxyURL = 'https://web-app-connect-to-salesforce.herokuapp.com/proxy/' ;
  
-const fs = require('fs'),
-      privateKey = fs.readFileSync('key.pem').toString('utf8'),
-	  jwt = require("salesforce-jwt-bearer-token-flow");
-
-
 
 function prodLogin()
 {
 	loginUrl = 'https://test-chris-dev-ed.my.salesforce.com/'; 
-    loginJWT();
+    login();
 }
 
 function sandLogin()
 {
     loginUrl = 'https://test-chris-dev-ed.my.salesforce.com/';
-    loginJWT();
+    login();
 }
 function login() {
     var url = loginUrl + 'services/oauth2/authorize?display=popup&response_type=token' +
@@ -32,17 +27,6 @@ function login() {
     popupCenter(url, 'login', 700, 600);
 }
 
-function loginJWT() {
-    var token = jwt.getToken({
-        iss: "3MVG97quAmFZJfVxWKnAvwSSZmNlDRE3_6Qwn1WK5g9juYM3jaINFc3BX9_XGU_LeYSo4mqbgIYJH8lvevSvK",
-        sub: "wfdlcl1227@126.com.analytics",
-        aud: "https://test-chris-dev-ed.my.salesforce.com",
-        privateKey: privateKey
-    },
-    function(err, token){
-        oauthCallback(token);
-    }
-    );
 
 }
 
@@ -62,7 +46,26 @@ function oauthCallback(response) {
         alert("AuthenticationError: No Token");
     }
 }
- 
+
+let loginJWT = (res)=>{
+    var token = jwt.getToken({
+        iss: "3MVG97quAmFZJfVxWKnAvwSSZmNlDRE3_6Qwn1WK5g9juYM3jaINFc3BX9_XGU_LeYSo4mqbgIYJH8lvevSvK",
+        sub: "wfdlcl1227@126.com.analytics",
+        aud: "https://login.salesforce.com",
+        privateKey: privateKey,
+    },
+    (err, token)=>{
+
+        res.cookie('AccToken', token.access_token, {maxAge: 60*1000});
+        res.cookie('APIVer', 'v37.0', {maxAge: 60*1000});
+        res.cookie('InstURL', token.instance_url, {maxAge: 60*1000});
+        res.cookie('idURL', token.id, {maxAge: 60*1000});
+        strngBrks = token.id.split('/');
+        res.cookie("LoggeduserId",  strngBrks[strngBrks.length - 1]) ;
+        res.sendfile('views/main.html');
+    }
+    );    
+}; 
 
 function popupCenter(url, title, w, h) {
     // Handles dual monitor setups
