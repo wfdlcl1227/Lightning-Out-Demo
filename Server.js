@@ -76,7 +76,7 @@ let loginJWT = (res)=>{
         res.cookie('idURL', token.id, {maxAge: 60*1000});
         strngBrks = token.id.split('/');
         res.cookie("LoggeduserId",  strngBrks[strngBrks.length - 1]) ;
-        res.sendfile('views/main.html');
+        res.sendfile('views/Main.html');
     }
     );    
 };
