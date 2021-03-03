@@ -61,7 +61,7 @@ app.listen(app.get('port'), function () {
     console.log('Express server listening on port ' + app.get('port'));
 });
 
-let loginJWT = (res)=>{
+function loginJWT(res){
     var token = jwt.getToken({
         iss: "3MVG97quAmFZJfVxWKnAvwSSZmNlDRE3_6Qwn1WK5g9juYM3jaINFc3BX9_XGU_LeYSo4mqbgIYJH8lvevSvK",
         sub: "wfdlcl1227@126.com.analytics",
