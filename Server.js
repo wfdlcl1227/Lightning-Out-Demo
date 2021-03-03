@@ -2,13 +2,26 @@ var express = require('express'),
     http = require('http'), 
     request = require('request'),
     bodyParser = require('body-parser'),
-    app = express();
+    app = express(),
+    fetch=require('node-fetch'),
+    sha1 = require('sha1');
 	
 var https = require('https');
 var fs = require('fs'),
 privateKey = fs.readFileSync('./key.pem').toString('utf8'),
 jwt = require("salesforce-jwt-bearer-token-flow");
  
+var wx_config = {
+    token_url:'https://qyapi.weixin.qq.com/cgi-bin/gettoken',
+    ticket_url:'https://qyapi.weixin.qq.com/cgi-bin/ticket/get',
+    corp_id:'ww280a3271671efde1',
+    corp_secret:'_O31adLntyCr6QUI5j5WD0L39O-tSVY9ltXyAihUqAo',
+    access_token: '',
+    ticket: '',
+    timestamp:parseInt(new Date().getTime() / 1000),
+    host_url:'https://web-app-connect-to-salesforce.herokuapp.com/'
+
+};
 	
 var logFmt = require("logfmt");
 
@@ -41,7 +54,9 @@ app.all('/proxy',  function(req, res, next) {
 });
  
 app.get('/' ,  function(req,res,next) {
-    loginJWT(res);
+    //getSFToken(res);
+    getWXToken(res);
+    
 } ); 
 
 app.get('/index*' ,  function(req,res,next) {
@@ -53,7 +68,7 @@ app.get('/oauthcallback.html' ,  function(req,res,next) {
 } ); 
 
 app.get('/Main*' ,   function(req,res,next) {
-    loginJWT(res);
+    getSFToken(res);
 } );
  
 
@@ -61,7 +76,7 @@ app.listen(app.get('port'), function () {
     console.log('Express server listening on port ' + app.get('port'));
 });
 
-let loginJWT = (res)=>{
+let getSFToken = (res)=>{
     var token = jwt.getToken({
         iss: "3MVG97quAmFZJfVxWKnAvwSSZmNlDRE3_6Qwn1WK5g9juYM3jaINFc3BX9_XGU_LeYSo4mqbgIYJH8lvevSvK",
         sub: "wfdlcl1227@126.com.analytics",
@@ -79,6 +94,38 @@ let loginJWT = (res)=>{
         res.sendfile('views/Main.html');
     }
     );    
+};
+
+
+async function getWXToken(res){
+    //get token
+    var url = wx_config.token_url;
+    url += '?corpid=' + wx_config.corp_id;
+    url += '&corpsecret=' + wx_config.corp_secret;    
+
+    let response = await fetch(url); // 解析 response header
+    let result = await response.json(); // 将 body 读取为 json
+    wx_config.access_token = result.access_token;
+    getWXTicket(res);
+
+};
+
+async function getWXTicket(res){
+    //get token
+    var url = wx_config.ticket_url;
+    url += '?access_token=' + wx_config.access_token+'&type=agent_config';
+
+    let response = await fetch(url); // 解析 response header
+    let result = await response.json(); // 将 body 读取为 json
+    wx_config.ticket = result.ticket;
+    getJSSDKSign(res);
+};
+
+
+function getJSSDKSign(res){
+    let wx_sign = "jsapi_ticket=" + wx_config.ticket + "&noncestr=" + sha1(new Date()) + "&timestamp=" + wx_config.timestamp + "&url=" + wx_config.host_url;
+    res.cookie('wxsign', sha1(wx_sign), {maxAge: 60*1000});
+    res.sendfile('views/Main.html');
 };
 
 var options = {
