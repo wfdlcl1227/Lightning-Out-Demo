@@ -55,10 +55,10 @@ if(!$.cookie("AccToken"))
     alert("Login to Salesforce First!!!");
 }else{
   
-	createChatterFeed('NEWS');
+	createLWC();
   
 }
-initWXSDK();
+//initWXSDK();
 
 
 function setupLightning(callback) {
@@ -146,10 +146,10 @@ function checkAPI(){
 
 }
 
-function createChatterFeed(type, subjectId) {
+function createLWC() {
     setupLightning(function() {
 	//$Lightning.createComponent("forceChatter:feed", {type: type, subjectId: subjectId}, "lexcontainer"); 
-	$Lightning.createComponent("c:LightningOutCmp",{} , "lexcontainer"); 
+	$Lightning.createComponent("c:contactlist",{} , "lexcontainer"); 
     });
 }
 

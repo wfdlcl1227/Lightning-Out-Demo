@@ -55,8 +55,8 @@ app.all('/proxy',  function(req, res, next) {
 });
  
 app.get('/' ,  function(req,res,next) {
-    //getSFToken(res);
-    getWXToken(res);
+    getSFToken(res);
+    //getWXToken(res);
     
 } ); 
 
