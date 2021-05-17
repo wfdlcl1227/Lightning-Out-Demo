@@ -55,8 +55,8 @@ app.all('/proxy',  function(req, res, next) {
 });
  
 app.get('/' ,  function(req,res,next) {
-res.sendfile('views/test.html');
-	//getSFToken(res);
+//res.sendfile('views/test.html');
+	getSFToken(res);
     //getWXToken(res);
     
 } ); 
@@ -70,8 +70,8 @@ app.get('/oauthcallback.html' ,  function(req,res,next) {
 } ); 
 
 app.get('/Main*' ,   function(req,res,next) {
-	res.sendfile('views/test.html');
-    //getSFToken(res);
+	//res.sendfile('views/test.html');
+    getSFToken(res);
 } );
  
 app.get('/WW_verify_e6WJnTuiAA4sEwBY.txt' ,   function(req,res,next) {
