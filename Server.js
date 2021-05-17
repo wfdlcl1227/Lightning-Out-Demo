@@ -55,7 +55,8 @@ app.all('/proxy',  function(req, res, next) {
 });
  
 app.get('/' ,  function(req,res,next) {
-    getSFToken(res);
+    console.log('===> ' + req.path);
+	//getSFToken(res);
     //getWXToken(res);
     
 } ); 
@@ -69,7 +70,7 @@ app.get('/oauthcallback.html' ,  function(req,res,next) {
 } ); 
 
 app.get('/Main*' ,   function(req,res,next) {
-	res.cookie('path111', req.path, {maxAge: 60*1000});
+	console.log('===> ' + req.path);
     //getSFToken(res);
 } );
  
