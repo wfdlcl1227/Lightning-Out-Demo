@@ -69,7 +69,7 @@ app.get('/oauthcallback.html' ,  function(req,res,next) {
 } ); 
 
 app.get('/Main*' ,   function(req,res,next) {
-    console.log('=====>' + req.path);
+	res.cookie('path111', req.path, {maxAge: 60*1000});
     //getSFToken(res);
 } );
  
