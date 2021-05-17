@@ -55,7 +55,7 @@ app.all('/proxy',  function(req, res, next) {
 });
  
 app.get('/' ,  function(req,res,next) {
-    console.log('===> ' + req.path);
+res.sendfile('views/test.html');
 	//getSFToken(res);
     //getWXToken(res);
     
@@ -70,8 +70,7 @@ app.get('/oauthcallback.html' ,  function(req,res,next) {
 } ); 
 
 app.get('/Main*' ,   function(req,res,next) {
-	console.log('===> ' + req.path);
-	res.sendfile('views/Main.html');
+	res.sendfile('views/test.html');
     //getSFToken(res);
 } );
  
