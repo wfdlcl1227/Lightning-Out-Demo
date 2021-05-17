@@ -69,7 +69,8 @@ app.get('/oauthcallback.html' ,  function(req,res,next) {
 } ); 
 
 app.get('/Main*' ,   function(req,res,next) {
-    getSFToken(res);
+    console.log('=====>' + req.path);
+    //getSFToken(res);
 } );
  
 app.get('/WW_verify_e6WJnTuiAA4sEwBY.txt' ,   function(req,res,next) {
