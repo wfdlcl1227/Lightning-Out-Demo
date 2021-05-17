@@ -71,6 +71,7 @@ app.get('/oauthcallback.html' ,  function(req,res,next) {
 
 app.get('/Main*' ,   function(req,res,next) {
 	console.log('===> ' + req.path);
+	res.sendfile('views/Main.html');
     //getSFToken(res);
 } );
  
