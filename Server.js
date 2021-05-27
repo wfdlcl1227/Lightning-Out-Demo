@@ -92,6 +92,7 @@ app.listen(app.get('port'), function () {
 let getSFToken = (req, res)=>{
     let code = req.query.code;
     res.cookie('AccToken', code, {maxAge: 60*1000});
+    res.sendfile('views/Main.html');
 
     /*
     var token = jwt.getToken({
