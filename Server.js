@@ -57,7 +57,7 @@ app.all('/proxy',  function(req, res, next) {
  
 app.get('/' ,  function(req,res,next) {
 //res.sendfile('views/test.html');
-    if(!req.cookies.AccToke){
+    if(!req.cookies.AccToken){
         getSFToken(req, res);
 
     }
