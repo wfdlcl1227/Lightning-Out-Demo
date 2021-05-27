@@ -52,7 +52,8 @@
 var _lightningReady = false;
 if(!$.cookie("AccToken"))
 { 
-    alert("Login to Salesforce First!!!");
+    alert('NO TOKEN');
+    window.location = "https://chris-li-dev-ed.my.salesforce.com/services/auth/sso/wechatcorp";
 }else{
   
 	createLWC();

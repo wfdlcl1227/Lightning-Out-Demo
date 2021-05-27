@@ -5,7 +5,8 @@ var express = require('express'),
     app = express(),
     fetch=require('node-fetch'),
     sha1 = require('sha1'),
-    urlencode = require('urlencode');
+    urlencode = require('urlencode'),
+    cookie = require('cookie-parser');    
 	
 var https = require('https');
 var fs = require('fs'),
@@ -56,7 +57,13 @@ app.all('/proxy',  function(req, res, next) {
  
 app.get('/' ,  function(req,res,next) {
 //res.sendfile('views/test.html');
-	getSFToken(res);
+    if(!req.cookies.AccToke){
+        getSFToken(req, res);
+
+    }
+
+
+	
     //getWXToken(res);
     
 } ); 
@@ -71,7 +78,7 @@ app.get('/oauthcallback.html' ,  function(req,res,next) {
 
 app.get('/Main*' ,   function(req,res,next) {
 	//res.sendfile('views/test.html');
-    getSFToken(res);
+    getSFToken(req, res);
 } );
  
 app.get('/WW_verify_e6WJnTuiAA4sEwBY.txt' ,   function(req,res,next) {
@@ -82,7 +89,11 @@ app.listen(app.get('port'), function () {
     console.log('Express server listening on port ' + app.get('port'));
 });
 
-let getSFToken = (res)=>{
+let getSFToken = (req, res)=>{
+    let code = req.query.code;
+    res.cookie('AccToken', code, {maxAge: 60*1000});
+
+    /*
     var token = jwt.getToken({
         iss: "3MVG97quAmFZJfVxWKnAvwSSZmNlDRE3_6Qwn1WK5g9juYM3jaINFc3BX9_XGU_LeYSo4mqbgIYJH8lvevSvK",
         sub: "wfdlcl1227@126.com.analytics",
@@ -99,7 +110,7 @@ let getSFToken = (res)=>{
         res.cookie("LoggeduserId",  strngBrks[strngBrks.length - 1]) ;
         res.sendfile('views/Main.html');
     }
-    );    
+    );    */
 };
 
 
